@@ -59,10 +59,10 @@ const playTheGame = (human, machine) => {
 const checkWinner = () => {
     if (humanScoreNumber === 10) {
         gameOver = true
-        showModal("Você venceu!")
+        showModal('<span style="color: green;">Você ganhou!</span>')
     } else if (machineScoreNumber === 10) {
         gameOver = true
-        showModal("GAME OVER")
+        showModal('<span style="color: red;">GAME OVER</span>')
     }
 }
 
