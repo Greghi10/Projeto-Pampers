@@ -5,6 +5,7 @@ const machineScore = document.querySelector('#machine-score')
 
 let humanScoreNumber = 0
 let machineScoreNumber = 0
+let gameOver = false // Trava o jogo quando alguém atinge 10 pontos
 
 /*
 humanScoreNumber -> Camel Case
@@ -20,6 +21,9 @@ const GAME_OPTIONS = {
 }
 
 const playHuman = (humanChoice) => {
+
+    // Impede jogadas se o jogo já tiver terminado
+    if (gameOver) return;
 
     playTheGame(humanChoice, playMachine())
 
@@ -48,4 +52,39 @@ const playTheGame = (human, machine) => {
         machineScore.innerHTML = machineScoreNumber
         result.innerHTML = "Você perdeu para Alexa"
     }
+    // Checa se alguém atingiu 10 pontos
+    checkWinner()
+}
+
+const checkWinner = () => {
+    if (humanScoreNumber === 10) {
+        gameOver = true
+        showModal("Você venceu!")
+    } else if (machineScoreNumber === 10) {
+        gameOver = true
+        showModal("GAME OVER")
+    }
+}
+
+// Exibe o modal customizado na tela
+const showModal = (message) => {
+    const modal = document.querySelector('#custom-modal')
+    const modalText = document.querySelector('#modal-text')
+
+    modalText.innerHTML = message
+    modal.style.display = 'flex'
+}
+
+// Reseta todas as variáveis e o placar
+const restartGame = () => {
+    humanScoreNumber = 0
+    machineScoreNumber = 0
+    gameOver = false
+
+    humanScore.innerHTML = 0
+    machineScore.innerHTML = 0
+    result.innerHTML = ""
+
+    const modal = document.querySelector('#custom-modal')
+    modal.style.display = 'none'
 }
